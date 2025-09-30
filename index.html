@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <title>Storyboard CampusMarket (Low-Fi)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { font-family: system-ui, Arial; }
+    body { margin: 24px; }
+    .screen { border: 2px dashed #999; padding: 16px; margin: 24px 0; border-radius: 12px; }
+    .nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .btn, button, a.button { border: 1px solid #333; padding: 8px 12px; border-radius: 8px; text-decoration: none; color: #111; display: inline-block; }
+    .field { margin: 8px 0; }
+    label { display:block; font-size: 0.9rem; color:#333; }
+    input, select { width: 100%; padding: 8px; border: 1px solid #bbb; border-radius: 8px; background: #fafafa; }
+    .card { border:1px solid #ccc; border-radius:10px; padding:12px; background:#fff; }
+    .note { font-size: 0.85rem; color:#555; background:#f6f6f6; padding:8px; border-radius:8px; }
+    .title { font-weight:700; font-size:1.1rem; margin-bottom:8px; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:12px; }
+    .muted { color:#777; }
+  </style>
+</head>
+<body>
+
+  <div class="nav">
+    <!-- “peta” cepat antar layar -->
+    <a class="btn" href="#L1">L1 Landing</a>
+    <a class="btn" href="#L2">L2 Daftar</a>
+    <a class="btn" href="#H1">H1 Home/Katalog</a>
+    <a class="btn" href="#D1">D1 Detail Produk</a>
+    <a class="btn" href="#O2">O2 Ringkasan Pesanan</a>
+  </div>
+
+  <!-- L1: Landing / Auth Gateway -->
+  <section id="L1" class="screen">
+    <div class="title">L1 — Landing</div>
+    <div class="grid">
+      <div class="card">
+        <p class="muted">Logo (placeholder)</p>
+        <a class="button" href="#L2">Daftar</a>
+        <a class="button" href="#Login">Masuk</a>
+        <p class="note"><b>Event→Response:</b> Klik “Daftar” → navigasi ke L2 (Form Registrasi).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- L2: Form Registrasi -->
+  <section id="L2" class="screen">
+    <div class="title">L2 — Form Registrasi</div>
+    <div class="card">
+      <div class="field">
+        <label>Email Universitas</label>
+        <input placeholder="nama@students.univ.ac.id" />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" />
+      </div>
+      <div class="field">
+        <button onclick="location.hash='#L2_Code'">Kirim Kode</button>
+        <span class="muted"> (dummy)</span>
+      </div>
+      <p class="note"><b>Event→Response:</b> “Kirim Kode” → tampil field OTP (layar L2_Code). Jika domain tidak valid → arahkan ke L2_Error.</p>
+      <div style="margin-top:10px">
+        <a class="button" href="#H1">Lewati (demo) ke Home</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- L2_Code: OTP -->
+  <section id="L2_Code" class="screen">
+    <div class="title">L2 — Verifikasi Kode</div>
+    <div class="card">
+      <div class="field">
+        <label>Kode Verifikasi (OTP)</label>
+        <input placeholder="123456" />
+      </div>
+      <a class="button" href="#H1">Daftar</a>
+      <a class="button" href="#L2">Kirim Ulang</a>
+      <p class="note"><b>Event→Response:</b> “Daftar” → akun dibuat → ke H1 (Home). “Kirim Ulang” → tetap di L2 (dummy).</p>
+    </div>
+  </section>
+
+  <!-- L2_Error: contoh alternate -->
+  <section id="L2_Error" class="screen">
+    <div class="title">L2 — Error Email</div>
+    <div class="card">
+      <p>Maaf, email harus domain universitas.</p>
+      <a class="button" href="#L2">Kembali</a>
+    </div>
+  </section>
+
+  <!-- H1: Home / Katalog -->
+  <section id="H1" class="screen">
+    <div class="title">H1 — Home / Katalog</div>
+    <div class="card">
+      <div class="field">
+        <label>Cari</label>
+        <input placeholder="Cari: laptop, buku, sepeda..." />
+      </div>
+      <div class="field">
+        <label>Filter</label>
+        <select><option>Kategori</option><option>Elektronik</option><option>Fesyen</option></select>
+      </div>
+      <div class="grid" style="margin-top:10px">
+        <a class="card" href="#D1">
+          <b>Produk A</b><br><span class="muted">Rp 500.000</span>
+        </a>
+        <a class="card" href="#D1">
+          <b>Produk B</b><br><span class="muted">Rp 120.000</span>
+        </a>
+      </div>
+      <p class="note"><b>Event→Response:</b> Klik kartu produk → ke D1 (Detail Produk). Ubah filter → daftarnya “seolah” berubah (low-fi).</p>
+    </div>
+  </section>
+
+  <!-- D1: Detail Produk -->
+  <section id="D1" class="screen">
+    <div class="title">D1 — Detail Produk</div>
+    <div class="card">
+      <p class="muted">[Foto Produk Placeholder 300×200]</p>
+      <h3>Produk A</h3>
+      <p>Harga: Rp 500.000 • Kondisi: Baik • Stok: 3</p>
+      <div class="field">
+        <a class="button" href="#Wishlist_Toast">❤ Wishlist</a>
+        <a class="button" href="#Chat">Tawar</a>
+        <a class="button" href="#O2">Beli Sekarang</a>
+      </div>
+      <p class="note"><b>Event→Response:</b> “Beli Sekarang” → O2 Ringkasan Pesanan; “Tawar” → Chat; “Wishlist” → tampil toast.</p>
+    </div>
+  </section>
+
+  <!-- O2: Ringkasan Pesanan -->
+  <section id="O2" class="screen">
+    <div class="title">O2 — Ringkasan Pesanan</div>
+    <div class="card">
+      <p>Produk A × <input style="width:60px" value="1" /> = Rp 500.000</p>
+      <p>Ongkir (estimasi): Rp 20.000</p>
+      <p><b>Total: Rp 520.000</b></p>
+      <a class="button" href="#O3">Lanjutkan</a>
+      <a class="button" href="#D1">Batal</a>
+      <p class="note"><b>Event→Response:</b> “Lanjutkan” → O3 Pilih Pengiriman. “Batal” → kembali ke D1.</p>
+    </div>
+  </section>
+
+  <!-- O3: Pilih Pengiriman -->
+  <section id="O3" class="screen">
+    <div class="title">O3 — Pilih Pengiriman</div>
+    <div class="card">
+      <label><input type="radio" name="ship" checked /> COD Kampus</label>
+      <label><input type="radio" name="ship" /> Pickup Penjual</label>
+      <label><input type="radio" name="ship" /> Kurir Reguler</label>
+      <div style="margin-top:10px">
+        <a class="button" href="#O4">Lanjutkan ke Pembayaran</a>
+      </div>
+      <p class="note"><b>Event→Response:</b> Pilihan mempengaruhi ringkasan akhir (di demo cukup narasi).</p>
+    </div>
+  </section>
+
+  <!-- O4: Pembayaran -->
+  <section id="O4" class="screen">
+    <div class="title">O4 — Pembayaran</div>
+    <div class="card">
+      <label><input type="radio" name="pay" checked /> Transfer Bank</label>
+      <label><input type="radio" name="pay" /> E-wallet</label>
+      <label><input type="radio" name="pay" /> COD</label>
+      <div style="margin-top:10px">
+        <a class="button" href="#O5">Bayar (dummy)</a>
+      </div>
+      <p class="note"><b>Event→Response:</b> “Bayar” sukses (dummy) → O5 Konfirmasi.</p>
+    </div>
+  </section>
+
+  <!-- O5: Konfirmasi -->
+  <section id="O5" class="screen">
+    <div class="title">O5 — Pesanan Dibuat</div>
+    <div class="card">
+      <p>✅ Pesanan berhasil dibuat.</p>
+      <a class="button" href="#OS1">Lihat Status</a>
+    </div>
+  </section>
+
+  <!-- OS1: Status Pesanan -->
+  <section id="OS1" class="screen">
+    <div class="title">OS1 — Status Pesanan</div>
+    <div class="card">
+      <p>Status: <b>Dibayar</b> → (nanti) Dikirim → Tiba</p>
+      <a class="button" href="#H1">Kembali ke Home</a>
+    </div>
+  </section>
+
+</body>
+</html>
